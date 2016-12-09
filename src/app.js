@@ -1,28 +1,14 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, Link, browserHistory } from 'react-router';
 
-interface AppProps {
-    
-}
-
-interface AppState {
-
-}
-
-class App extends React.Component<AppProps, AppState> {
-    
-    constructor() {
-        super()
-    }
-
+class App extends React.Component {
     render() {
         return (
             <h1>Hello world! - react</h1>
         );
     }
-
 }
 
 async function nigger() {

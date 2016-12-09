@@ -1,8 +1,8 @@
 import {app, BrowserWindow} from 'electron';
-import * as path from 'path';
-import * as url from 'url';
+import path from 'path';
+import url from 'url';
 
-let win : Electron.BrowserWindow;
+let win;
 
 function createWindow () {
 

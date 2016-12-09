@@ -7,8 +7,6 @@ var gulpsync = require('gulp-sync')(gulp);
 var sourcemaps = require('gulp-sourcemaps');
 var plumber = require('gulp-plumber');
 var gutil = require('gulp-util');
-var merge = require('gulp-merge');
-var ts = require('gulp-typescript');
 
 var onError = function (err) {  
   console.log(err.toString());
@@ -31,18 +29,8 @@ var babelConfig = {
     ]
 }
 
-var tsProject = ts.createProject('tsconfig.json');
-
-gulp.task('typescript', function() {
-    return gulp.src('src/**/*.{tsx,ts}')
-        .pipe(plumber({errorHandler: onError}))
-        .pipe(tsProject())
-        .js.pipe(gulp.dest('dist/'))
-        .pipe(livereload());
-});
-
 gulp.task('less', function() {
-  return gulp.src('src/**/*.less')
+  gulp.src('src/**/*.less')
     .pipe(plumber({errorHandler: onError}))
     .pipe(sourcemaps.init())
     .pipe(less())
@@ -56,11 +44,10 @@ gulp.task('watch', function() {
   gulp.watch('src/**/*.less', ['less']);
   gulp.watch('src/**/*.js', ['babel']);
   gulp.watch('src/**/*.html', ['copy-html']);
-  gulp.watch('src/**/*.{tsx,ts}', ['typescript']);
 });
 
 gulp.task('copy-html', function() {
-    return gulp.src('src/**/*.html')
+    gulp.src('src/**/*.html')
     .pipe(plumber({errorHandler: onError}))
     .pipe(gulp.dest('dist/'))
     .pipe(livereload());
@@ -84,7 +71,7 @@ gulp.task('run-electron', function() {
     exec('./node_modules/.bin/electron .');
 });
 
-gulp.task('build-assets', ['copy-html', 'typescript', 'less']);
+gulp.task('build-assets', ['copy-html', 'babel', 'less']);
 gulp.task('build', gulpsync.sync(['clear-dist', 'build-assets']));
 gulp.task('sync-build-launch', gulpsync.sync(['build', 'run-electron']));
 gulp.task('default', ['sync-build-launch', 'watch']);
