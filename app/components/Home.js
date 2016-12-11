@@ -20,7 +20,6 @@ export default class Home extends Component {
               <Block>
                 <div className="Project-tree">
                   File tree - /
-                  
                 </div>
               </Block>
             </Block>
