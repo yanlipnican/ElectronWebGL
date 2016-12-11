@@ -2,8 +2,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import styles from './Home.css';
-import { Button } from 'antd';
 import { Block } from './Flex/Block';
+
+import {Canvas} from 'components/canvas';
 
 export default class Home extends Component {
   render() {
@@ -41,9 +42,7 @@ export default class Home extends Component {
                 <Block direction='row'>
 
                   <Block>
-                    <div className="GameWindow">
-
-                    </div>
+                      <Canvas width="1280" height="720"/>
                   </Block>
 
                 </Block>

@@ -19,7 +19,7 @@ export class Block extends React.Component{
                 content.push(obj);
 
                 if(key !== this.props.children.length - 1){
-                    content.push(<div className={`divider ${this.props.direction || ''}`}></div>);
+                    content.push(<div key={key} className={`divider ${this.props.direction || ''}`}></div>);
                 }    
             }); 
 
