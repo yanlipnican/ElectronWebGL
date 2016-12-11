@@ -48,7 +48,7 @@ export default class Home extends Component {
 
                 </Block>
               </Block>
-              <Block height="300px">
+              <Block height="250px">
                 <div className="Console">
                     [1572] ./~/rc-upload/~/warning/browser.js 1.81 kB {0}<br/>
                     [1573] ./~/antd/lib/upload/uploadList.js 8.8 kB {0}<br/>
