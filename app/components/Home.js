@@ -11,8 +11,17 @@ export default class Home extends Component {
       <div className="Root">
         <Block direction="column" disableResize>
           <Block direction='row'>
-            <Block width="300px">
-              File tree
+            <Block width="300px" direction="column" disableResize>
+              <Block height="auto" disableResize>
+                <div className="project-name">
+                  Test Game
+                </div>
+              </Block>
+              <Block>
+                <div className="Project-tree">
+                  File tree - /
+                </div>
+              </Block>
             </Block>
             <Block direction="column">
               <Block direction="column" disableResize>
