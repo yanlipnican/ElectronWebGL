@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 
-import Engine from 'engine/main.js';
+import Engine from 'engine/Engine.js';
 
 export class Canvas extends Component{
     constructor() {
