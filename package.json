@@ -76,8 +76,7 @@
     "url": "https://github.com/yanlipnican"
   },
   "license": "MIT",
-  "bugs": {
-  },
+  "bugs": {},
   "keywords": [
     "electron",
     "webgl",
@@ -149,6 +148,8 @@
   "dependencies": {
     "electron-debug": "^1.1.0",
     "font-awesome": "^4.7.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^4.4.6",

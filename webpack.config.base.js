@@ -17,6 +17,10 @@ export default validate({
     }, {
       test: /\.json$/,
       loader: 'json-loader'
+    },
+    {
+      test: /\.less$/,
+      loader: "style-loader!css-loader!less-loader"
     }]
   },
 
