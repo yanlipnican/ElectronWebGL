@@ -30,7 +30,7 @@ export class Tabs extends Component{
 
         if(this.props.children.constructor === Array){
             this.props.children.map((item, key) => {
-                content.push(<div key={key} style={{display : this.state.activeTab == key ? 'initial' : 'none'}}>{this.props.children[key]}</div>);
+                content.push(<div className="Tab" key={key} style={{display : this.state.activeTab == key ? 'initial' : 'none'}}>{this.props.children[key]}</div>);
                 head.push(<TabHead onActivate={this.activateTab} onClose={this.closeTab} id={key} active={key === this.state.activeTab ? true : false} title={item.props.title} key={key}/>);
             })
         } else {
@@ -41,7 +41,9 @@ export class Tabs extends Component{
         return (
             <div className="Tabs">
                 <div className="head">
-                    {head}
+                    <div className="menu-horizontal left">
+                        {head}
+                    </div>
                 </div>
                 <div className="content">
                     {content}
@@ -53,7 +55,7 @@ export class Tabs extends Component{
 
 export class Tab extends Component{
     render() {
-        return <div>{this.props.children}</div>
+        return <div className="Tab">{this.props.children}</div>
     }
 }
 

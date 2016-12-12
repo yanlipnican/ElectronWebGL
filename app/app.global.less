@@ -10,6 +10,8 @@ body{
 
 *{
     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 .Root{
@@ -66,13 +68,8 @@ body{
 
     .item{
         padding: 10px 10px;
-        color: #7f7f7f;
-        text-align: center;
         cursor: pointer;
         transition: .2s;
-        &:hover{
-            color: white;
-        }
     }
 }
 
@@ -125,12 +122,27 @@ body{
     position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+
+    .Tab{
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    .content{
+        width: 100%;
+        flex: 1;
+        position: relative;
+        display: block;
+    }
 
     .head{
-        display: flex;
-        align-items: flex-start;
         border-bottom: 2px solid #333;
         width: 100%;
+        position: relative;
         .item{
             background-color: @gray;
             padding: 5px 10px;
@@ -160,4 +172,9 @@ body{
     position: relative;
     background-color: black;
     color: white;
+}
+
+#CodeEditor{
+    width: 100%;
+    height: 100%;
 }

@@ -48,7 +48,7 @@ export default class Home extends Component {
                       <Canvas width="1280" height="720"/>
                     </Tab>
                     <Tab title="Code">
-                      <CodeEditor />
+                       <CodeEditor/>
                     </Tab>
                   </Tabs>
                 </Block>
@@ -76,7 +76,7 @@ export default class Home extends Component {
 
             </Block>
             <Block width="400px">
-              sadas
+              Inspector
             </Block>
           </Block>
           <Block height="auto">
