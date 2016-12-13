@@ -35,7 +35,7 @@ export class Tabs extends Component{
             })
         } else {
             content = this.props.children;
-            head.push(<TabHead  active title={this.props.children.title}/>)
+            head.push(<TabHead key={0} active title={this.props.children.props.title}/>)
         }
 
         return (
@@ -55,7 +55,7 @@ export class Tabs extends Component{
 
 export class Tab extends Component{
     render() {
-        return <div className="Tab">{this.props.children}</div>
+        return <div className={`Tab ${this.props.scrollable ? 'scrollable' : ''}`}>{this.props.children}</div>
     }
 }
 
