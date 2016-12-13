@@ -65,12 +65,14 @@ class File extends Component{
                 <div className="overlay"></div>
                 <span className="text">{this.props.dir.name}</span>
             </span>
-            {this.props.dir.isDir && this.state.expanded ?
-
-                    this.props.dir.files.map((file, key) => {
-                        return <File padding={this.padding} dir={file}/>
-                    })
+            {this.props.dir.isDir  ?
                  
+                <div style={{display : this.state.expanded ? 'initial' : 'none'}}>
+                    {this.props.dir.files.map((file, key) => {
+                        return <File padding={this.padding} dir={file}/>
+                    })}
+                </div>
+
             : false}
         </li>
         );
