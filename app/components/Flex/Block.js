@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class Block extends React.Component{
+export default class Block extends React.Component{
     render() {
 
         let style = {

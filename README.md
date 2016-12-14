@@ -21,5 +21,5 @@ Project uses [PIXI.js](https://github.com/pixijs/pixi.js) as renderer.
 ### Start application in debug mode and hot reload react and less :
 
 ```bash
-    npm run dev
+$ npm run dev
 ```

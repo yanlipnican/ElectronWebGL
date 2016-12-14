@@ -1,37 +1,56 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import autobind from 'autobind-decorator';
 
-export class Tabs extends Component{
+import * as TabActions from 'actions/tabs';
+
+class TabsComponent extends Component{
     constructor(){
         super();
-        this.state = {
-            activeTab : 0,
-        }
     }
 
     componentWillMount() {
-        
+        if(this.props.children.constructor === Array){
+            let ids = [];
+            this.props.children.map((child) => {
+                ids.push(child.props.title);
+            });
+            this.props.initTab(this.props.id, ids);
+        } else {
+            this.props.initTab(this.props.id, [this.props.children.props.title]);
+        }
     }
 
     @autobind
     activateTab(tab){
-        this.setState({activeTab : tab});
+        this.props.focusTab(tab);
     }
 
     @autobind
     closeTab(tab){
 
     }
+
+    getTabFromStore(){
+        for(let tab of this.props.tabs.tabs){
+            if(tab.id === this.props.id){
+                return tab;
+            }
+        }
+    }
     
     render() {
 
         let head = [];
         let content = [];
+        
+        let activeTab = this.getTabFromStore().focusedTab;
 
         if(this.props.children.constructor === Array){
             this.props.children.map((item, key) => {
-                content.push(<div className="Tab" key={key} style={{display : this.state.activeTab == key ? 'initial' : 'none'}}>{this.props.children[key]}</div>);
-                head.push(<TabHead onActivate={this.activateTab} onClose={this.closeTab} id={key} active={key === this.state.activeTab ? true : false} title={item.props.title} key={key}/>);
+                content.push(<div className="Tab" key={key} style={{display : activeTab == key ? 'initial' : 'none'}}>{this.props.children[key]}</div>);
+                head.push(<TabHead onActivate={this.activateTab} onClose={this.closeTab} id={key} active={key === activeTab ? true : false} title={item.props.title} key={key}/>);
             })
         } else {
             content = this.props.children;
@@ -63,15 +82,27 @@ class TabHead extends Component{
 
     @autobind
     click(){
-        this.props.onActivate(this.props.id);
+        this.props.onActivate(this.props.title);
     }
 
     @autobind
     close(){
-        this.props.onClose(this.props.id);
+        this.props.onClose(this.props.title);
     }
 
     render() {
         return <div onClick={this.click} className={`item ${this.props.active ? 'active' : 'unactive'}`}>{this.props.title}</div>
     }
 }
+
+function mapStateToProps(state) {
+  return {
+    tabs: state.tabs
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(TabActions, dispatch);
+}
+
+export const Tabs = connect(mapStateToProps, mapDispatchToProps)(TabsComponent);

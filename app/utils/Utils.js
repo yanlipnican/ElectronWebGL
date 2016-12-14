@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-export async function listFiles(dir){
+export function listDirectory(dir){
     return new Promise((resolve, reject) => {
         fs.readdir(dir, (err, files) => {
             if(err){
@@ -38,7 +38,7 @@ export async function isDirectory(dir){
 }
 
 export async function getFileTree(dir){
-    let getFiles = await listFiles(dir);
+    let getFiles = await listDirectory(dir);
     
     if(!getFiles.error){
 
@@ -54,6 +54,7 @@ export async function getFileTree(dir){
 
             result.push({
                 name : fileName,
+                extension : extension(fileName),
                 parentDir : dir,
                 path : filePath,
                 isDir : isDir,
@@ -66,4 +67,23 @@ export async function getFileTree(dir){
     } else {
         return {error: getFiles.error};
     }
+}
+
+export function extension(file){
+    let arr = file.split('.');
+    return arr[arr.length - 1];
+}
+
+export async function readFile(file){
+    return new Promise((resolve) => {
+        
+        fs.readFile(file, 'utf-8', (err, data) => {
+            if(err) {
+                resolve({error: err});
+            } else {
+                resolve(data);
+            }
+        });
+
+    });
 }

@@ -1,13 +1,17 @@
 import autobind from 'autobind-decorator';
 import React, { Component } from 'react';
-import { listFiles, fileStats, getFileTree, isDirectory } from 'utils/Utils';
+import { listDirectory, fileStats, getFileTree, isDirectory, readFile } from 'utils/Utils';
 
 export default class ProjectTree extends Component {
     
     constructor(){
         super();
 
-        this.state = {files : []};
+        this.state = {  
+            files : [],
+            loading : false,
+            error : false
+        };
     }
 
     componentWillMount(){
@@ -15,23 +19,33 @@ export default class ProjectTree extends Component {
     }
 
     async getFileTree(){
-
+        this.setState({loading : true, error : false});
+        
         let files = await getFileTree(this.props.folder);
-
-        if(files.err){
-            this.setState({files : []}); 
-            // TODO handle error   
+        
+        this.setState({loading : false});
+        
+        if(files.error){
+            this.setState({files : [], error : true});
         }
-
+        
         this.setState({files : files});
     }
     
     render() {
 
+        if(this.state.error){
+            return <div className="fileTree no-select error">Error directory "{this.props.folder}" doesnt exist.</div>
+        }
+
+        if(this.state.loading){
+            return <div className="fileTree no-select loading">Loading files...</div>
+        }
+
         return( 
             <ul className="fileTree no-select">
                 {this.state.files.map((file, key) => {
-                    return <File dir={file}/>
+                    return <File dir={file} key={key}/>
                 })}
             </ul>
         );
@@ -58,20 +72,30 @@ class File extends Component{
         }
     }
 
+    @autobind
+    async openFile(){
+        console.log(await readFile(this.props.dir.path));
+    }
+
     render(){
+
         return (
         <li className={``}>
-            <span style={{paddingLeft : this.padding}} className={`file ${this.state.expanded ? 'expanded' : ''} ${this.props.dir.isDir ? 'dir' : ''}`} onClick={this.expand}>
+            <span 
+                style={{paddingLeft : this.padding}} 
+                className={`file ${this.state.expanded ? 'expanded' : ''} ${this.props.dir.isDir ? 'dir' : ''}`} 
+                onClick={this.props.dir.isDir ? this.expand : this.openFile}
+            >
                 <div className="overlay"></div>
                 <span className="text">{this.props.dir.name}</span>
             </span>
             {this.props.dir.isDir  ?
                  
-                <div style={{display : this.state.expanded ? 'initial' : 'none'}}>
+                <ul style={{display : this.state.expanded ? 'initial' : 'none'}}>
                     {this.props.dir.files.map((file, key) => {
-                        return <File padding={this.padding} dir={file}/>
+                        return <File key={key} padding={this.padding} dir={file}/>
                     })}
-                </div>
+                </ul>
 
             : false}
         </li>

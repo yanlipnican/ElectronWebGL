@@ -11,6 +11,7 @@ export default class Game {
         this.running = false;
         this.scripts = [];
         this.children = [];
+        this.props = {};
         this.loop();
     }
 
@@ -45,7 +46,6 @@ export default class Game {
         this.children.map((child) => {
             child.init();
         })
-        this.start();
     }
 
     update() {
@@ -58,13 +58,21 @@ export default class Game {
     }
 
     addScript(script) {
-        this.scripts.push(new script(this, this));
+        let newScript = new script(this, this);
+        this.scripts.push(newScript);
+        
+        if(this.running){
+            newScript.init();
+        }
     }
 
     addChild(child){
-        this.children.push(child);
-        
+        this.children.push(child);   
         this.stage.addChild(child.container);
+        
+        if(this.running){
+            child.init();
+        }
     }
 
     getGameObjectById(id){
@@ -73,6 +81,17 @@ export default class Game {
         });
 
         return gameObject;
+    }
+
+    loadScene(){
+
+    }
+
+    clearScene(){
+        // TODO : CLEAR STAGE
+        this.props = {};
+        this.scripts = [];
+        this.children = [];
     }
 
     @autobind

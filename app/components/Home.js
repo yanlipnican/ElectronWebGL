@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import styles from './Home.css';
-import { Block } from './Flex/Block';
+import Block from './Flex/Block';
 
 import {Canvas} from 'components/canvas';
 import {Tabs, Tab} from 'components/Tabs/Tabs';
@@ -16,7 +16,7 @@ export default class Home extends Component {
         <Block direction="column" disableResize>
           <Block direction='row'>
             <Block width="300px" direction="column" disableResize>
-              <Tabs>
+              <Tabs id="left-window">
                 <Tab title="Explorer" scrollable>
                   <ProjectTree folder={`/home/lipnican/Workspace/ElectronWebGL/app/`}/>
                 </Tab>
@@ -44,7 +44,7 @@ export default class Home extends Component {
                   </div>
                 </Block>
                 <Block direction='row'>
-                  <Tabs>
+                  <Tabs id="middleWindow">
                     <Tab title="Game">
                       <Canvas width="1280" height="720"/>
                     </Tab>
@@ -55,14 +55,14 @@ export default class Home extends Component {
                 </Block>
               </Block>
               <Block height="260px">
-                <Tabs>
+                <Tabs id="BottomWindow">
                   <Tab title="Output">
                   </Tab>
                 </Tabs>
               </Block>
             </Block>
             <Block width="400px">
-              <Tabs>
+              <Tabs id="rightwindow">
                 <Tab title="Inspector">
 
                 </Tab>
