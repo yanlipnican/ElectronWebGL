@@ -8,18 +8,12 @@ import Loader from 'engine/Loader.js';
 import Script from 'engine/Script.js';
 import GameObject from 'engine/GameObject.js';
 
-import { initGame, addScript, startGame } from 'actions/game';
+import { initGame, addScript, startGame, addChild, stopGame} from 'actions/game';
 
 class testScript extends Script{
 
     async init(){
-        let texture = await Loader.loadTexture('ninja', 'res/test_sprite.png');
-        let ninjaSprite = new PIXI.Sprite(texture);
 
-        let ninja = new GameObject('ninja');
-        ninja.setSprite(ninjaSprite);
-
-        this.game.addChild(ninja);
     }
 
     update(){
@@ -47,6 +41,31 @@ export class Canvas extends Component{
         this.context.store.dispatch(initGame(this.props.width, this.props.height));
     }
 
+    async test(){
+        let texture = await Loader.loadTexture('ninja', 'res/test_sprite.png');
+        
+        let ninjaSprite = new PIXI.Sprite(texture);
+        let ninjaSprite2 = new PIXI.Sprite(texture);
+
+        let ninja = new GameObject('ninja', this.game);
+        let ninja2 = new GameObject('ninja2', this.game);
+        
+        ninja.setSprite(ninjaSprite);
+        ninja2.setSprite(ninjaSprite2);
+
+        this.context.store.dispatch(addChild(ninja));
+        this.context.store.dispatch(addScript(testScript, ninja));
+        this.context.store.dispatch(startGame());
+
+        setTimeout(() => {
+            this.context.store.dispatch(stopGame());
+        },2000)
+
+        setTimeout(() => {
+            console.log(this.context.store.getState().game.scene.children[0].sprite.position);
+        },10000)
+    }
+
     @autobind
     updateGameStateFromReducer(){
         let state = this.context.store.getState();
@@ -54,8 +73,6 @@ export class Canvas extends Component{
         if(game !== null && !this.inited){
             findDOMNode(this.refs.container).appendChild(game.canvas);
             this.inited = true;
-            this.context.store.dispatch(addScript(testScript));
-            this.context.store.dispatch(startGame());
         }
     }
 

@@ -2197,6 +2197,10 @@ decompress@^3.0.0:
     vinyl-assign "^1.0.1"
     vinyl-fs "^2.2.0"
 
+deep-copy@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/deep-copy/-/deep-copy-1.1.2.tgz#75360b1080b3eb5b9e6f0f0ba2cf159bb5a28b04"
+
 deep-diff@0.3.4:
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-0.3.4.tgz#aac5c39952236abe5f037a2349060ba01b00ae48"

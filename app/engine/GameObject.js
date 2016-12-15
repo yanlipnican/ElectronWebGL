@@ -2,9 +2,9 @@ import * as PIXI from 'pixi.js';
 
 export default class GameObject{
     
-    constructor(id, game, parent){
-        this.parent = parent || null;
-        this.game = game;
+    constructor(id){
+        this.parent = null;
+        this.game = null;
         this.id = id;
         this.scripts = [];
         this.children = [];
@@ -49,11 +49,13 @@ export default class GameObject{
     }
 
     addScript(script) {
-        this.scripts.push(new script(game, this));
+        this.scripts.push(new script(this.game, this));
     }
 
     addChild(child){
         child.parent = this;
+        child.game = this.game;
+
         this.children.push(child);
         this.container.addChild(child.container);
     }

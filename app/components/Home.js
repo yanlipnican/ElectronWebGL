@@ -8,6 +8,7 @@ import {Canvas} from 'components/canvas';
 import {Tabs, Tab} from 'components/Tabs/Tabs';
 import CodeEditor from 'components/CodeEditor';
 import ProjectTree from 'components/ProjectTree';
+import Hierarchy from 'components/Hierarchy';
 
 export default class Home extends Component {
   render() {
@@ -17,11 +18,11 @@ export default class Home extends Component {
           <Block direction='row'>
             <Block width="300px" direction="column" disableResize>
               <Tabs id="left-window">
+                <Tab title="Hierarchy">
+                  <Hierarchy />
+                </Tab>
                 <Tab title="Explorer" scrollable>
                   <ProjectTree folder={`/home/lipnican/Workspace/ElectronWebGL/app/`}/>
-                </Tab>
-                <Tab title="Prefabs">
-                  content 2
                 </Tab>
                 <Tab title="Sprites">
                   content 3

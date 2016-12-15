@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 import * as PIXI from 'pixi.js';
+import deepCopy from 'deep-copy';
 
 export default class Game {
 
@@ -67,6 +68,9 @@ export default class Game {
     }
 
     addChild(child){
+        child.game = this;
+        child.parent = this;
+
         this.children.push(child);   
         this.stage.addChild(child.container);
         
@@ -83,12 +87,21 @@ export default class Game {
         return gameObject;
     }
 
-    loadScene(){
+    loadScene(scene){
+        this.clearScene();
 
+        scene.children.map((child) => {
+            this.addChild(child);
+        })
+
+        scene.scripts.map((script) => {
+            this.addScript(script);
+        })
     }
 
     clearScene(){
-        // TODO : CLEAR STAGE
+        this.running = false;
+        this.stage.removeChildren();
         this.props = {};
         this.scripts = [];
         this.children = [];
@@ -97,10 +110,12 @@ export default class Game {
     @autobind
     loop() {
         window.requestAnimationFrame(this.loop);
+        
         if(this.running){
             this.update();
-            this.renderer.render(this.stage);
         }
+
+        this.renderer.render(this.stage);
     }
 
 }

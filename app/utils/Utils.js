@@ -87,3 +87,7 @@ export async function readFile(file){
 
     });
 }
+
+export function getConstructor(obj){
+  return Object.getPrototypeOf(obj).constructor;
+}
