@@ -2,8 +2,9 @@ import Game from 'engine/Game.js';
 import Loader from 'engine/Loader.js';
 import Script from 'engine/Script.js';
 import GameObject from 'engine/GameObject.js';
+import deepCopy from 'deep-copy';
 
-import { START_GAME, STOP_GAME, ADD_CHILD, INIT_GAME, CREATE_GAMEOBJECT, ADD_COMPONENT} from 'actions/game';
+import { CHANGE_COMPONENT_VALUE, OBJ_CHANGE_ID, START_GAME, STOP_GAME, ADD_CHILD, INIT_GAME, CREATE_GAMEOBJECT, ADD_COMPONENT} from 'actions/game';
 
 const initialState = {
     game : null,
@@ -39,6 +40,24 @@ export default function game_reduces(state = initialState, action) {
               template.setParent(action.parent);
               action.parent.children.push(template);
           }
+          break;
+      }
+      case OBJ_CHANGE_ID:
+      {
+          action.obj.id = action.id;
+          break;
+      }
+      case ADD_COMPONENT:
+      {
+          let componentClass = require('engine/Component');
+          let component = new componentClass(action.obj);
+          component.__defaultValues = deepCopy(componentClass.defaultValues);
+          action.obj.addComponent(component);
+          break;
+      }
+      case CHANGE_COMPONENT_VALUE:
+      {
+          action.component.__defaultValues[action.key] = action.newValue;
           break;
       }
 
@@ -85,16 +104,3 @@ class Template{
         }
     }
 }
-
-
-        // {
-        //     // template
-        //     id 
-        //     components
-        //     children []
-        //     parent
-        // }
-
-        //game.loadTemplate(template)
-        // ^ for loop of these
-        //game.loadScene(scene)

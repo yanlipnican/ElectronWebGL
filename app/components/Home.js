@@ -9,6 +9,7 @@ import {Tabs, Tab} from 'components/Tabs/Tabs';
 import CodeEditor from 'components/CodeEditor';
 import ProjectTree from 'components/ProjectTree';
 import Hierarchy from 'components/Hierarchy';
+import Inspector from 'components/Inspector';
 
 export default class Home extends Component {
   render() {
@@ -18,10 +19,10 @@ export default class Home extends Component {
           <Block direction='row'>
             <Block width="300px" direction="column" disableResize>
               <Tabs id="left-window">
-                <Tab title="Hierarchy">
+                <Tab icon="fa-sitemap" title="Hierarchy">
                   <Hierarchy />
                 </Tab>
-                <Tab title="Explorer" scrollable>
+                <Tab icon="fa-folder-o" title="Explorer" scrollable>
                   <ProjectTree folder={`/home/lipnican/Workspace/ElectronWebGL/app/`}/>
                 </Tab>
                 <Tab title="Sprites">
@@ -46,10 +47,10 @@ export default class Home extends Component {
                 </Block>
                 <Block direction='row'>
                   <Tabs id="middleWindow">
-                    <Tab title="Game">
+                    <Tab icon="fa-gamepad" title="Game">
                       <Canvas width="1280" height="720"/>
                     </Tab>
-                    <Tab title="Code">
+                    <Tab icon="fa-code" title="Code">
                        <CodeEditor/>
                     </Tab>
                   </Tabs>
@@ -64,8 +65,8 @@ export default class Home extends Component {
             </Block>
             <Block width="400px">
               <Tabs id="rightwindow">
-                <Tab title="Inspector">
-
+                <Tab icon="fa-binoculars" title="Inspector">
+                  <Inspector />
                 </Tab>
               </Tabs>
             </Block>

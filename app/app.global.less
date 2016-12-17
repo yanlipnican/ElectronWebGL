@@ -1,3 +1,5 @@
+@import "../node_modules/font-awesome/less/font-awesome";
+
 @blue : #007ACC;
 @gray : #7f7f7f;
 
@@ -6,6 +8,10 @@ body{
     margin: 0;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+*{
+    outline-color: @blue;
 }
 
 ::-webkit-scrollbar{ 
@@ -177,6 +183,15 @@ body{
             flex: 1;
             font-size: 10px;
 
+            .title.hasIcon{
+                margin-left: 20px;
+            }
+            .icon{
+                position: absolute;
+                font-size: 15px;
+                top: 4px;
+            }
+
             &.active{
                 opacity: 1;
             }
@@ -254,4 +269,147 @@ body{
             }
         }
     }
+}
+
+.Hierarchy{
+    .topBar{
+        background-color: #1E1E1E;
+        width: 100%;
+        display: flex;
+        align-items: stretch;
+
+        .search{
+            flex: 1;
+        }
+    }
+    .additionInput{
+        background-color: #1E1E1E;
+        color: #999;
+        border: 0;
+        outline: 0;
+        width: 100%;
+        padding: 3px 20px;
+        font-size: 13px;
+    }
+
+    ul{
+        padding-top: 10px;
+        li{
+            padding: 3px 20px;
+            font-size: 13px;
+            color: #ccc;
+            width: 100%;
+            cursor: pointer;
+            &:hover{
+                background-color: #3C3C3C;
+            }
+            &.focused{
+                background-color: #555;
+            }
+        }
+    }
+}
+
+
+.Inspector{
+    .objHeader{
+        padding: 10px 10px;
+        background-color: #3C3C3C;
+        .row{    
+            display: flex;
+            align-items: stretch;
+        }
+        .objIcon{
+            margin-right: 10px;
+            position: relative;
+            top: 2px;
+        }
+        input{
+            flex: 1;
+        }
+    }
+
+    .component{
+        background-color: #3C3C3C;
+        border-top: 2px solid #1E1E1E;
+        color: #ccc;
+        font-size: 14px;
+
+        .head{
+            padding: 5px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .icon{
+                margin-right: 10px;
+            }
+            .dropDown{
+                color: #999;
+                cursor: pointer;
+                transition: .2s;
+                &:hover{
+                    color: white;
+                }
+            }
+        }
+
+        .row{
+            border-top: 1px solid #2e2e2e;
+            padding: 5px 10px;
+        }
+    }
+}
+
+.btn{
+    background-color: #555;
+    color: #ccc;
+    padding: 4px 10px;
+    border: 0;
+    cursor: pointer;
+
+    &:hover{
+        background-color: #444;
+    }
+}
+
+.input{
+    background-color: #1E1E1E;
+    color: #999;
+    border: 0;
+    padding: 4px 10px;
+    outline: 0;
+
+    &:focus{
+        color: #ccc;
+        background-color: #202020;
+    }
+}
+
+.flex{
+    .row{
+        width: 100%;
+        display: flex;
+        align-items: stretch;
+        
+        &.center{
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .flex-1{
+        flex: 1;
+    }
+
+    .flex-2{
+        flex: 2;
+    }
+}
+
+.mt-20{
+    margin-top: 20px;
+}
+
+.mt-10{
+    margin-top: 10px;
 }

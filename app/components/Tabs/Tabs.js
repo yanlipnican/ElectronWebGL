@@ -50,11 +50,11 @@ class TabsComponent extends Component{
         if(this.props.children.constructor === Array){
             this.props.children.map((item, key) => {
                 content.push(<div className="Tab" key={key} style={{display : activeTab == key ? 'initial' : 'none'}}>{this.props.children[key]}</div>);
-                head.push(<TabHead onActivate={this.activateTab} onClose={this.closeTab} id={key} active={key === activeTab ? true : false} title={item.props.title} key={key}/>);
+                head.push(<TabHead icon={item.props.icon} onActivate={this.activateTab} onClose={this.closeTab} id={key} active={key === activeTab ? true : false} title={item.props.title} key={key}/>);
             })
         } else {
             content = this.props.children;
-            head.push(<TabHead key={0} active title={this.props.children.props.title}/>)
+            head.push(<TabHead icon={this.props.children.props.icon} key={0} onActivate={this.activateTab} active title={this.props.children.props.title}/>)
         }
 
         return (
@@ -91,7 +91,7 @@ class TabHead extends Component{
     }
 
     render() {
-        return <div onClick={this.click} className={`item ${this.props.active ? 'active' : 'unactive'}`}>{this.props.title}</div>
+        return <div onClick={this.click} className={`item ${this.props.active ? 'active' : 'unactive'}`}>{this.props.icon ? <i className={`fa ${this.props.icon} icon`}/> : false}<span className={`title ${this.props.icon ? 'hasIcon' : ''}`}>{this.props.title}</span></div>
     }
 }
 

@@ -1,11 +1,26 @@
-export default class Component{
-    constructor(parent, props){
+// component.__defaultValues = component.getClass().defaultValues
+// parameters of _constructor have to be in same order as parameter in Component.proptypes
+// all props declared in 'this' should be inicialized in _constructor
+
+class Component{
+    constructor(parent){
         this.parent = parent;
-        this._constructor(...props);
+    }
+
+    init(){
+        this._constructor(...serialize(this.__defaultValues));
     }
 
     game(){
         return this.parent.game;
+    }
+
+    getDefaultValues(){
+        return this.__defaultValues;
+    }
+
+    getClass(){
+        return Object.getPrototypeOf(this).constructor;
     }
 
     // Define properties accessible from editor
@@ -22,7 +37,17 @@ export default class Component{
 
 }
 
-class Transform extends Component{
+function serialize(obj){
+    let arr = [];
+    
+    for(let key in obj){
+        arr.push(obj[key]);
+    }
+
+    return arr;
+}
+
+export default class Transform extends Component{
 
     static proptypes = {
         x : Number,
