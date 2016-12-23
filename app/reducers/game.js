@@ -49,7 +49,7 @@ export default function game_reduces(state = initialState, action) {
       }
       case ADD_COMPONENT:
       {
-          let componentClass = require('engine/Component');
+          let componentClass = require('engine/Component').Transform;
           let component = new componentClass(action.obj);
           component.__defaultValues = deepCopy(componentClass.defaultValues);
           action.obj.addComponent(component);

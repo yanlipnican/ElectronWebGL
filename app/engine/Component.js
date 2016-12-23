@@ -5,10 +5,12 @@
 class Component{
     constructor(parent){
         this.parent = parent;
+        this.enabled = true;
     }
 
     init(){
         this._constructor(...serialize(this.__defaultValues));
+        this.parent[this.getClass().name] = this;
     }
 
     game(){
@@ -21,6 +23,14 @@ class Component{
 
     getClass(){
         return Object.getPrototypeOf(this).constructor;
+    }
+
+    enable(){
+        this.enabled = true;
+    }
+
+    disable(){
+        this.enabled = false;
     }
 
     // Define properties accessible from editor
@@ -47,7 +57,7 @@ function serialize(obj){
     return arr;
 }
 
-export default class Transform extends Component{
+export class Transform extends Component{
 
     static proptypes = {
         x : Number,
@@ -90,6 +100,21 @@ export default class Transform extends Component{
         return {x: this.container.scale.x, y: this.container.scale.y};
     }
 
+}
+
+export class Renderer extends Component{
+    static proptypes = {
+        texture : 'Texture'
+    }
+
+    _constructor(texture){
+        this.sprite = PIXI.Sprite(this.parent.id, texture);
+        this.parent.Transform.container.addChild(this.sprite);
+    }
+
+    getSprite(){
+        return this.sprite;
+    }
 }
 
 // gameObject.Transform.setPosition(20, 10);
